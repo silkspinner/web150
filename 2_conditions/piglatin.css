@@ -1,0 +1,38 @@
+/* Pig Latin Translator styles */
+
+html,body {
+  background-color: #DDF;
+  padding:1em;
+  max-width: 800px;
+}
+
+button {
+  margin: 1em;
+  padding: .5em;
+  font-size: large;
+  background-color: #DDB;
+}
+
+#original {
+  margin:1em;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #FFF;
+  padding: .5em;
+  font-size: large;
+}
+
+#translation {
+  margin:1em;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #FFF;
+  padding: .5em;
+  font-size: large;
+}
+
+.floatright {
+  float:right;
+}

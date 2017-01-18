@@ -58,9 +58,7 @@ var translatePigLatin = function translatePigLatin(textToTranslate) {
         }
         // put back uppercase
         if (isUppercase === true) {
-            var firstLetter = words[word].substr(0,1);
-            firstLetter = firstLetter.toUpperCase();
-            words[word] = firstLetter + words[word].substr(1);
+            words[word] = words[word].substr(0,1).toUpperCase() + words[word].substr(1);
         }
         
         // put back trailing punctuation

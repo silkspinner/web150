@@ -4,6 +4,7 @@ html,body {
   background-color: #DDF;
   padding:1em;
   max-width: 800px;
+  min-width: 540px;
 }
 
 button {

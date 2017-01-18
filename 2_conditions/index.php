@@ -26,6 +26,8 @@
             </script>
         </h3>
         <h2>Pig Latin Translator</h2>
+        <p>Version 2.0 which handles simple capitalization and punctuation.</p>
+       <p>Try a sentance like "Mary told Bill, Ted and Ethan she can't speak Pig Latin."</p>
         <button onclick="reloadPage()">Click to enter new sentance</button>
 
         <h2>Original Sentance</h2>

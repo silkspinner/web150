@@ -1,0 +1,47 @@
+/* Pig Latin Translator styles */
+
+html,body {
+  background-color: #DDF;
+  padding:1em;
+  max-width: 800px;
+  min-width: 540px;
+}
+
+.input {
+  margin: 1em;
+  padding: .5em;
+  font-size: large;
+  background-color: #EEF;
+}
+#gradeChart {
+  background-color: #EEF;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border:solid;
+  padding: 0;
+  margin: 0;
+}
+
+td {
+  margin: 0;
+  padding: .25em .5em;
+}
+
+.titles {
+  font-weight: bold;
+}
+
+.min {
+  color: red;
+  font-weight: bold;
+}
+
+.max {
+  color: green;
+  font-weight: bold;
+}
+
+.floatright {
+  float:right;
+}

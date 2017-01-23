@@ -7,6 +7,7 @@ var gradeMin = 100;
 var gradeMax = 0;
 
 var gradeAverage = 0;
+var studentNumber = 0;
 
 var listGrades = function listGrades() {
     // function to list students name and grade from grades
@@ -37,14 +38,17 @@ var listGrades = function listGrades() {
         gradeTotal += intGrade;
     }
     gradeAverage = gradeTotal/student.length;
+    studentNumber = student.length;
     
     // build html for table
     var tableData = "<tr class='titles'><td>Student</td><td>Grade</td></tr>"
     for (var id in student) {
         if (parseInt(student[id].grade) == gradeMin) {
+            // add min class styling for minimum grades
             tableData += "<tr class='min'><td>" + student[id].name + "</td><td>" + student[id].grade + "</td></tr>"
         }
         else if (parseInt(student[id].grade) == gradeMax) {
+            // add max class styling for maximum grades
             tableData += "<tr class='max'><td>" + student[id].name + "</td><td>" + student[id].grade + "</td></tr>"
         }
         else {
@@ -54,5 +58,4 @@ var listGrades = function listGrades() {
     document.getElementById("gradeChart").innerHTML = tableData;
 
 }
-
 

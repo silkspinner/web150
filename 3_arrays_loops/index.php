@@ -23,6 +23,7 @@
         <h3>Assignment: Students Grade List</h3>
         <p>Input Data String for this assignment shown here</p>
         <div class="input">jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27</div>
+
         <table id="gradeChart"></table>
         
         <script>
@@ -30,6 +31,7 @@
 
             document.write('<h3>The lowest grade was ' + gradeMin + '</h3>');
             document.write('<h3>The highest grade was ' + gradeMax + '</h3>');
+            document.write('<h3>The total number of students was ' + studentNumber + '</h3>');
             document.write('<h3>The average grade was ' + gradeAverage + '</h3>');
         </script>
     </body>

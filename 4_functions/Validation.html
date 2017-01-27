@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <!-- WEB150 WN17 Week 4 Assignment*/ -->
+    <!-- 01/26/2017 Ron Nims -->
+    <!-- Functions & Validation of name and password -->
+    <head>
+        <link rel="stylesheet" href="Validation.css" />
+        <script src="Validation.js"></script>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    </head>
+<body>
+    <h2>WEB150 Week 4</h2>
+
+    <h3 id="nameField"></h3>
+
+    <h3>
+        <script> 
+            var firstName = "Ron";
+            var lastName = "Nims";
+            var thisDate = new Date();
+            document.getElementById("nameField").innerHTML = 'Name: ' + firstName + ' ' + lastName + ' - Date: ' + thisDate.toDateString();
+        </script>
+    </h3>
+    <h3>Assignment: Functions & validation</h3>
+
+    <form id="form1" action="#" onsubmit="return validateForm(this);">
+        <h4>Enter Login information below</h4>
+        
+        First Name: <input type="text" name="firstname"><br>
+        Last Name: <input type="text" name="lastname"><br>
+        Password: <input type="text" name="password"><br>
+        
+        <button >Submit</button>
+    </form>
+
+    <br><div id="message"></div>
+
+    <script>
+    function validateForm(myForm) {
+        // get text values from the input form
+        var firstname = myForm.firstname.value;
+        var lastname = myForm.lastname.value;
+        var password =  myForm.password.value;
+        var fireworks = '<img src="fireworks.gif" alt="Fireworks" />'; 
+        // validate each field and set appropriate message
+        if (firstname.length == 0) {
+            $("#message").html("ERROR: First Name is a required field.");          
+        } else if (lastname.length == 0) {
+            $("#message").html("ERROR: Last Name is a required field.");        
+        } else if (!checkPassword(password)) {
+            $("#message").html("ERROR: Password must be at least 8 characters and contain Upper and Lower case letters.");        
+        } else {
+            $("#message").html(fireworks + 'Excellent - Login credentials are valid.' + fireworks);        
+        }
+      return false; // prevent page reload
+    }
+    </script>
+
+</body>
+</html> 

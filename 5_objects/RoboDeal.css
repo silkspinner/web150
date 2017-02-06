@@ -1,0 +1,48 @@
+/* Pig Latin Translator styles */
+
+html,body {
+  background-color: #DDF;
+  padding:1em;
+  max-width: 800px;
+  min-width: 540px;
+}
+
+div {
+  margin: .5em;
+  font-size: larger;
+}
+
+#hand {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+}
+
+.card {
+  width: 100px;
+  height: 140px;
+  background-image: url("cardback.png");
+  text-align: center;
+}
+
+#dealerSays {
+  color: blue;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.card p {
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+button {
+    padding: .5em;
+    font-size: large;
+    margin: 1em 1em 1em 6em;
+    color: blue;
+}
+

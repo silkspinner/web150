@@ -30,10 +30,10 @@ function Deck() {
     this.deal = function (){
         // pick random Card from Deck and return it
         var dealNumber = Math.floor(Math.random() * this.cards.length);
-        var dealCard = this.cards[dealNumber]
+        var dealCard = this.cards[dealNumber];
 
         // splice the dealt Card from Deck
-        this.cards.splice(dealNumber, 1)
+        this.cards.splice(dealNumber, 1);
 
         return dealCard;
     };
@@ -48,7 +48,7 @@ var showCards = function showCards(hand){
         document.getElementById(cardId).style.backgroundImage = cardImage;
         document.getElementById(cardId).innerHTML = "<p>" + hand[i].name + "</p>";
     }
-} 
+}; 
 
 
 var shuffleDeck = function shuffleDeck(deck) {
@@ -60,20 +60,21 @@ var shuffleDeck = function shuffleDeck(deck) {
         document.getElementById(cardId).style.backgroundImage = 'url("cardback.png")';
         document.getElementById(cardId).innerHTML = "";
     }
-}
+};
     
 var dealCardsPoker = function dealCardsPoker(deck) {
     hand = [];
     for ( var i = 0; i < 5; i++) {
         hand.push(deck.deal());
         }
-    showCards(hand);
     document.getElementById("dealerSays").innerHTML = "Your Poker hand!";
-}
+    showCards(hand);
+
+};
     
 var dealCardsBlackjack = function dealCardsBlackjack(deck) {
     hand = [];
-    handValue = 0;
+    var handValue = 0;
     for ( var i = 0; i < 3; i++) {
         hand.push(deck.deal());
         handValue += hand[i].value;
@@ -85,8 +86,12 @@ var dealCardsBlackjack = function dealCardsBlackjack(deck) {
     } else {
         document.getElementById("card3").style.backgroundImage = 'url("cardback_win.png")';                       
     }
+    document.getElementById("dealerSays").innerHTML = "Your BlackJack hand!";
     document.getElementById("card4").innerHTML = "<p>" + handValue.toString() + "</p>";
     document.getElementById("card4").style.backgroundImage = 'url("cardback_value.png")';
+
+    document.getElementById("dealerSays").innerHTML = "Your Blackjack hand!";
     showCards(hand);
-}
+
+};
 

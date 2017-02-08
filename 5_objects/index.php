@@ -36,47 +36,6 @@
             <button onclick="dealCardsBlackjack(dealerDeck)">Deal Blackjack</button>
             <button onclick="shuffleDeck(dealerDeck)">Shuffle</button>
         </div>
-        <script>
-            var shuffleDeck = function shuffleDeck(deck) {
-                deck  = new Deck;
-                var cardId = "";
-                document.getElementById("dealerSays").innerHTML = "Poker or Blackjack?";
-                for ( var i = 0; i < 5; i++) {
-                    cardId = "card" + i;
-                    document.getElementById(cardId).style.backgroundImage = 'url("cardback.png")';
-                    document.getElementById(cardId).innerHTML = "";
-                }
-            }
-                
-            var dealCardsPoker = function dealCardsPoker(deck) {
-                hand = [];
-                for ( var i = 0; i < 5; i++) {
-                    hand.push(deck.deal());
-                    }
-                showCards(hand);
-                document.getElementById("dealerSays").innerHTML = "Your Poker hand!";
-            }
-                
-            var dealCardsBlackjack = function dealCardsBlackjack(deck) {
-                hand = [];
-                handValue = 0;
-                for ( var i = 0; i < 3; i++) {
-                    hand.push(deck.deal());
-                    handValue += hand[i].value;
-                    }
-
-                document.getElementById("card3").innerHTML = "";
-                if (handValue > 21) {
-                    document.getElementById("card3").style.backgroundImage = 'url("cardback_bust.png")';                    
-                } else {
-                    document.getElementById("card3").style.backgroundImage = 'url("cardback_win.png")';                       
-                }
-                document.getElementById("card4").innerHTML = "<p>" + handValue.toString() + "</p>";
-                document.getElementById("card4").style.backgroundImage = 'url("cardback_value.png")';
-                showCards(hand);
-            }
-
-        </script>
     
     </body>
 </html> 

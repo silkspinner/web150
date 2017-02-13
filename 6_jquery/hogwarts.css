@@ -1,0 +1,54 @@
+/* Potterific Styles */
+
+html,body {
+    background-color: #DDF;
+    padding:1em;
+    max-width: 800px;
+    min-width: 540px;
+    
+}
+
+div {
+    margin: .5em;
+    font-size: larger;
+}
+
+#hogwarts {
+    background-image: url("indaris_parchment.jpg");
+    font-family: 'Metal Mania', cursive;
+    text-align: center;
+    color: brown;
+    padding: 1em;
+}
+
+table {
+    margin: 1em auto;
+    border: solid 2px brown;
+}
+
+td {
+    padding: .25em 1em;
+}
+
+#colhead {
+    font-weight: bold;
+}
+
+#buttonRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+}
+
+button {
+    background-color: beige;
+    padding: 0 .25em;
+    font-size: 1em;
+    font-family: 'Metal Mania', cursive;
+    margin: 1em .25em;
+    color: maroon;
+    border:solid 4px purple;
+}
+

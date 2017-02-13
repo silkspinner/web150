@@ -12,7 +12,7 @@ div {
   font-size: larger;
 }
 
-#hand {
+#buttonRow {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

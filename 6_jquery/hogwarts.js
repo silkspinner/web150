@@ -68,11 +68,9 @@ var buildTable = function buildTable() {
 
 var toggleHouse = function toggleHouse(house) {
     // toggle visibility of house rows
-    $("td").filter(function() {
-        return $(this).text() == house;
-        }).closest("tr").hide();
+    $("tr").hide();
+    $("tr:contains(" + house + ")").show();
     refreshTable();
-    
 };
 
 var resetAll = function resetAll() {

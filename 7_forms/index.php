@@ -47,25 +47,25 @@
 YOUR CODE GOES HERE: complete the following items, using the variables provided, to make the tests pass.
 */
 //1. Find all span tags on the page, and store the result in the variable below
-var spans = "";
+var spans = "span";
 //2. Find all tags with a class of "severe" and store the result
-var severe = "";
+var severe = ".severe";
 //3. Find the element with an id of "warnings"
-var warnings = "";
+var warnings = "#warnings";
 //4. Find the <li> tags located inside of the element with ID of "warnings"
-var warningItems = "";
+var warningItems = "#warnings li";
 //5. Find the <ul> tag that contains an element with a class of "mild"
-var ul = "";
+var ul = "ul:has(.mild)";
 //6. Find all spans with a "data-x" attribute
-var dataX = "";
+var dataX = "[data-x]";
 //7. Change the elements with a class of "purple" to have a background of "magenta"
-
+$(".purple").css("background-color", "magenta");
 //8. Change the contents of the element with class "continent" to contain "Australia"
-
+$(".continent").text("Australia");
 //9. Add a class of "stripe" to all odd-numbered list items inside section tags
-
+$("section li:odd").addClass("stripe");
 //10. Remove the class of "facts" from the <main> element
-
+$("main").removeClass("facts");
 
 </script>
 

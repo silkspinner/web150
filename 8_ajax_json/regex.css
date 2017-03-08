@@ -1,0 +1,37 @@
+/* Potterific Styles */
+
+html,body {
+    background-color: #DDF;
+    padding:1em;
+    max-width: 800px;
+    min-width: 540px;
+    
+}
+
+div {
+    margin: .5em;
+    font-size: larger;
+}
+
+
+table {
+    margin: 1em auto;
+    border: solid 2px brown;
+}
+
+td {
+    padding: .25em 1em;
+}
+
+#colhead {
+    font-weight: bold;
+}
+
+#content {
+    font-size: small;
+    width: 80%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color: ivory;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <!-- WEB150 WN17 Week 8 Assignment*/ -->
+    <!-- 02/11/2017 Ron Nims -->
+    <!-- Assignment - Regular Expression-->
+    <head>
+        <link rel="stylesheet" href="regex.css" />
+        <script src="regex.js"></script>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h2>WEB150 Week 8</h2>
+    
+        <h3 id="nameField"></h3>
+    
+        <h3>
+            <script> 
+                var thisDate = new Date();
+                document.getElementById("nameField").innerHTML = 'Name: Ron Nims - Date: ' + thisDate.toDateString();
+            </script>
+        </h3>
+        <h3>Assignment: Regular Expression</h3>
+
+        <h3>Content Block</h3>
+        <div id="content">Steps to take if you become a victim
+        If you are a victim of identity theft, the Federal Trade Commission recommends these steps:
+        File a complaint with the FTC at identitytheft.gov.
+        Contact one of the three major credit bureaus to place a ‘fraud alert’ on your credit records:
+        Equifax, www.Equifax.com, 1-800-766-0008
+        Experian, www.Experian.com, 1 888-397-3742
+        TransUnion, www.TransUnion.org, 1 (800) 680-7289
+        Contact your financial institutions, and close any financial or credit accounts opened without your permission or tampered with by identity thieves.
+        If your SSN is compromised and you know or suspect you are a victim of tax-related identity theft, the IRS recommends these additional steps:
+        Respond immediately to any IRS notice; call the number provided.
+        Complete IRS Form 14039, Identity Theft Affidavit, if your efiled return rejects because of a duplicate filing under your SSN or you are instructed to do so. Use a fillable form at IRS.gov, print, then attach the form to your return and mail according to instructions.
+        If you previously contacted the IRS and did not have a resolution, contact us for specialized assistance at 1-800-908-4490. We have teams available to assist.
+        About data breaches and your taxes
+        Not all data breaches or computer hacks result in tax-related identity theft. It’s important to know what type of personal information was stolen.
+        If you’ve been a victim of a data breach, keep in touch with the company to learn what it is doing to protect you and follow the “Steps for victims of identity theft.” Data breach victims should submit a Form 14039, Identity Theft Affidavit, only if your Social Security number has been compromised and your efile return was rejected as a duplicate or IRS has informed you that you may be a victim of tax-related identity theft.
+        How to reduce your risk
+        Join efforts by the IRS, states and tax industry to protect your data. Taxes. Security. Together. We all have a role to play. Here's how you can help:
+        Always use security software with firewall and anti-virus protections. Use strong passwords.
+        Learn to recognize and avoid phishing emails, threatening calls and texts from thieves posing as legitimate organizations such as your bank, credit card companies and even the IRS.
+        Do not click on links or download attachments from unknown or suspicious emails.
+        Protect your personal data. Don’t routinely carry your Social Security card, and make sure your tax records are secure.
+        See Publication 4524, Security Awareness for Taxpayers, to learn more
+        
+        Report suspicious online or emailed phishing scams to: phishing@irs.gov. For phishing scams by phone, fax or mail, call 1-800-366-4484. 
+        </div>
+        <br>
+        <h3>jQuery Regex Results</h3>
+        <div id="answers"></div>
+    </body>
+    <script>
+    $(document).ready(function(){
+        buildAnswers()        
+    });
+        
+    </script>
+
+</html> 

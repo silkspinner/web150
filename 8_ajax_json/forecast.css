@@ -1,0 +1,75 @@
+/* Potterific Styles */
+
+html {
+    background-image: url("cloudy-sky.jpg");
+    padding:1em;
+    max-width: 800px;
+    min-width: 540px;
+    
+}
+
+div {
+    margin: .5em;
+    font-size: larger;
+}
+
+
+table {
+    margin: 1em auto;
+    border: solid 2px green;
+}
+#fiveDay {
+    background-color: #fff;
+    text-align: center;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+#fd-hightemp {
+    color: red;
+}
+
+#fd-lowtemp {
+    color: blue;
+}
+
+th {
+    font-family: 'Bubblegum Sans', cursive;
+    width: 100%;
+}
+
+td {
+    padding: .25em 1em;
+}
+
+#fiveDay p {
+    margin: 0;
+    padding: 0;
+}
+
+#fiveDay td {
+    width: 20%;
+}
+
+#colhead {
+    font-weight: bold;
+}
+
+input {
+    font-size: 1em;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+button {
+    margin: 1em;
+    font-size: 1em;
+}
+
+#getCity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    max-width: 24em;
+}
+

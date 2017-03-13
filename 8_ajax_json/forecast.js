@@ -160,6 +160,7 @@ var buildCurrent = function buildCurrent(city) {
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
                 ",US&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
+
     console.log(currentUrl);
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
@@ -175,27 +176,36 @@ var buildCurrent = function buildCurrent(city) {
 
             mainRow += '<td><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
             
-            // process all weather objects
-            mainRow += '<td>';
-            for (type in current.weather) {
-                mainRow += '<p>' + current.weather[type].main + '</p>';
-                if (current.weather[type].main.toLowerCase() != current.weather[type].description.toLowerCase()) {
-                    mainRow += '<p>' + current.weather[type].description + '</p>';           
-                }
-            }
-            mainRow += '</td>';
-            
             mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
- 
+            
+            mainRow += "<td><b>" + current.main.humidity + "%</b><p>Humidity</p></td>";
+
+            mainRow += '<td><p>barometric</p><p>pressure</p><p><b>';
+            mainRow += Math.round(current.main.pressure) + " hPa</b></p></td>";
+
             mainRow += '<td><p>Sunrise</p><p>' + makeTime(sunriseDate) +  '</p><p><img src="sunrise.jpg"></p></td>';
 
-            lastRow += "<td><b>" + current.main.humidity + "%</b><p>Humidity</p></td>";
+            // process all weather objects
+            lastRow += '<td>';
+            for (type in current.weather) {
+                lastRow += '<p>' + current.weather[type].main + '</p>';
+                if (current.weather[type].main.toLowerCase() != current.weather[type].description.toLowerCase()) {
+                    lastRow += '<p>' + current.weather[type].description + '</p>';           
+                }
+            }
+            lastRow += '</td>';
             
-            lastRow += '<td><p>barometric</p><p>pressure</p><p><b>';
-            lastRow += Math.round(current.main.pressure) + " hPa</b></p></td>";
+            if (current.clouds.all == 1){
+                lastRow += "<td><p>Cloudcover</p><p><b>Zero %</b></p></td>";
+            }
+            else {
+                lastRow += "<td><p>Cloudcover</p><p><b>" + Math.round(current.clouds.all) + "%</b></p></td>";
+            }
 
             lastRow += '<td><p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
             lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p></td>';
+            
+            lastRow += '<td><p>Visibility</p><p><b>' + Math.round(current.visibility) + ' ft</b></p></td>';
             
             lastRow += '<td><p>Sunset</p><p>' + makeTime(sunsetDate) +  '</p><p><img src="sunset.jpg"></p></td>';
             

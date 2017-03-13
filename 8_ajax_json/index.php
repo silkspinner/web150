@@ -29,7 +29,7 @@
         
          <table id="current">
             <thead>
-                <tr><th id="cw-title" colspan="4"></th></tr>
+                <tr><th id="cw-title" colspan="5">Current Weather</th></tr>
            </thead>
             <tbody>
                 <tr id="cw-main"></tr>
@@ -39,7 +39,7 @@
        
         <table id="fiveDay">
             <thead>
-                <tr><th id="fd-title" colspan="5"></th></tr>
+                <tr><th id="fd-title" colspan="5">5-Day Forcast</th></tr>
            </thead>
             <tbody>
                 <tr id="fd-date"></tr>

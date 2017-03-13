@@ -3,8 +3,8 @@
 html {
     background-image: url("cloudy-sky.jpg");
     padding:1em;
-    max-width: 800px;
-    min-width: 540px;
+    max-width: 880px;
+    min-width: 600px;
     
 }
 
@@ -83,7 +83,7 @@ input {
 
 button {
     margin: 1em;
-    font-size: 1em;
+    font-size: .9em;
     font-weight: bold;
     color: green;
 }

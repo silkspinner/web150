@@ -23,7 +23,7 @@
         </h3>
         <hr>
         <div id="getCity">
-            <p>Enter US City: <input type="text" id="city" value="Seattle"></p>
+            <p>Enter City: <input type="text" id="city" value="Seattle"></p>
             <button>Get Forecast</button>
         </div>
         
@@ -61,7 +61,7 @@
         $(document).ready(function(){
             $("button").click(function(){
                 if ($("#city").val().length > 0) {
-                    if (/^[a-zA-Z\s]+$/.test($("#city").val())) {
+                    if (/^[a-zA-Z\s,]+$/.test($("#city").val())) {
                         buildCurrent($("#city").val());
                         buildForecast($("#city").val());
                     }

@@ -159,15 +159,14 @@ var buildCurrent = function buildCurrent(city) {
     // use data to populate Html Table rows
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
-                ",US&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
+                "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
 
-    console.log(currentUrl);
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
             // handle successful request
 
-            $("#cw-title").html("<p><h2>Current weather for " + current.name + "</h2></p>");
+            $("#cw-title").html("<p><h2>Current weather for " + current.name + ", " + current.sys.country + "</h2></p>");
             
             // initialize variables used to accumulate row info
             var mainRow = "", lastRow = "";
@@ -227,7 +226,7 @@ var buildForecast = function buildForecast(city) {
     // use thisWeek to populate Html Table rows
 
     var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city +
-                ",US&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
+                "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
 
     // request 5 day forcast JSON data from weather service
     $.getJSON(forcastUrl, function (forecast, status) {
@@ -237,7 +236,7 @@ var buildForecast = function buildForecast(city) {
             var thisWeek = makeWeek(forecast);
    
             // update forcast table elements with the forcast
-            $("#fd-title").html("<h2>5-day forecast for " + forecast.city.name + "</h2>");
+            $("#fd-title").html("<h2>5-day forecast for " + forecast.city.name + ", " + forecast.city.country + "</h2>");
             
             // initialize variables used to accumulate row info
             var dateRow = "", iconRow = "", descRow = "", hiTempRow = "";

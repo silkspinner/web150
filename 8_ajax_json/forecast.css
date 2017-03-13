@@ -13,15 +13,30 @@ div {
     font-size: larger;
 }
 
+h2 {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
 
 table {
     margin: 1em auto;
     border: solid 2px green;
+    border-radius: .5em;
 }
-#fiveDay {
+
+#fiveDay, #current {
     background-color: #fff;
     text-align: center;
     font-family: 'Bubblegum Sans', cursive;
+}
+
+#current td {
+    font-size: 1.25em;
+    color: darkblue;
+}
+
+#getCity {
+    margin: auto;    
 }
 
 #fd-hightemp {
@@ -37,31 +52,40 @@ th {
     width: 100%;
 }
 
-td {
-    padding: .25em 1em;
-}
-
-#fiveDay p {
+table p {
     margin: 0;
     padding: 0;
 }
 
 #fiveDay td {
     width: 20%;
+    padding: .25em 1em;
 }
+
+#current td {
+    width: 25%;
+    padding: .1em .25em;}
 
 #colhead {
     font-weight: bold;
 }
 
+img {
+    margin: 0;
+    padding: 0;
+}
+
 input {
     font-size: 1em;
     font-family: 'Bubblegum Sans', cursive;
+    padding-left: .5em;
 }
 
 button {
     margin: 1em;
     font-size: 1em;
+    font-weight: bold;
+    color: green;
 }
 
 #getCity {
@@ -71,5 +95,6 @@ button {
     justify-content:center;
     align-items: center;
     max-width: 24em;
+    font-family: 'Bubblegum Sans', cursive;
 }
 

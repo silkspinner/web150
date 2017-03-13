@@ -27,9 +27,21 @@
             <button>Get Forcast</button>
         </div>
         
+         <table id="current">
+            <thead>
+                <tr><th id="cw-title" colspan="4"></th></tr>
+           </thead>
+            <tbody>
+                <tr id="cw-main"></tr>
+                <tr id="cw-last"></tr>
+            </tbody>
+        </table>
+       
         <table id="fiveDay">
             <thead>
                 <tr><th id="fd-title" colspan="5"></th></tr>
+           </thead>
+            <tbody>
                 <tr id="fd-date"></tr>
                 <tr id="fd-icon"></tr>
                 <tr id="fd-desc"></tr>
@@ -38,12 +50,8 @@
                 <tr id="fd-humidity"></tr>
                 <tr id="fd-pressure"></tr>
                 <tr id="fd-winds"></tr>
-           </thead>
-            <tbody>
             </tbody>
         </table>
-    <div id="test"></div>
-
 
     <script type="text/JavaScript" >
 
@@ -53,6 +61,7 @@
         $(document).ready(function(){
             $("button").click(function(){
 
+                buildCurrent($("#city").val());
                 buildForecast($("#city").val());
 
             });

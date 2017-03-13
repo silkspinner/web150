@@ -7,6 +7,17 @@ var months = ["January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"];
 var iconUrl = "http://openweathermap.org/img/w/";
 
+var padDigit = function padDigit(myNumber) {
+    // add leading zero to single digits
+    var newNumber = ("0" + myNumber).slice(-2);
+    return newNumber;
+}
+var makeTime = function makeTime(myDate) {
+    // make 'HH:SS PST' time format
+    var timeStr = myDate.getHours() + ":" + padDigit(myDate.getMinutes()) + " PST";
+    return timeStr;
+}
+
 var compass = function compass(degrees) {
     // convert degrees into correct compass point notation
     var compassPoints = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
@@ -167,8 +178,7 @@ var buildCurrent = function buildCurrent(city) {
             
             mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
  
-            mainRow += '<td><p>Sunrise</p><p><b>';
-            mainRow += sunriseDate.getHours() + ":" + sunriseDate.getMinutes() + ' PST</b></p><p><img src="sunrise.jpg"></p></td>';
+            mainRow += '<td><p>Sunrise</p><p>' + makeTime(sunriseDate) +  '</p><p><img src="sunrise.jpg"></p></td>';
 
             lastRow += "<td><b>" + current.main.humidity + "%</b><p>Humidity</p></td>";
             
@@ -178,8 +188,7 @@ var buildCurrent = function buildCurrent(city) {
             lastRow += '<td><p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
             lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p></td>';
             
-            lastRow += '<td><p>Sunset</p><p><b>';
-            lastRow += sunsetDate.getHours() + ":" + sunsetDate.getMinutes() + ' PST</b></p><p><img src="sunset.jpg"></p></td>';
+            lastRow += '<td><p>Sunset</p><p>' + makeTime(sunsetDate) +  '</p><p><img src="sunset.jpg"></p></td>';
             
             // update the html rows
             $("#cw-main").html(mainRow);

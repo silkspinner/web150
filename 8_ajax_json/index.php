@@ -24,7 +24,7 @@
         <hr>
         <div id="getCity">
             <p>Enter US City: <input type="text" id="city" value="Seattle"></p>
-            <button>Get Forcast</button>
+            <button>Get Forecast</button>
         </div>
         
          <table id="current">

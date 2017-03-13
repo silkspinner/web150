@@ -14,7 +14,7 @@ var padDigit = function padDigit(myNumber) {
 }
 var makeTime = function makeTime(myDate) {
     // make 'HH:SS PST' time format
-    var timeStr = myDate.getHours() + ":" + padDigit(myDate.getMinutes()) + " PST";
+    var timeStr = myDate.getHours() + ":" + padDigit(myDate.getMinutes());
     return timeStr;
 }
 

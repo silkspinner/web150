@@ -61,7 +61,7 @@
         $(document).ready(function(){
             $("button").click(function(){
                 if ($("#city").val().length > 0) {
-                    if (/^[a-zA-Z]+$/.test($("#city").val())) {
+                    if (/^[a-zA-Z\s]+$/.test($("#city").val())) {
                         buildCurrent($("#city").val());
                         buildForecast($("#city").val());
                     }

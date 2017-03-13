@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
     </head>
     <body>
-        <h2>WEB150 Week 8</h2>
+        <h2>WEB150 Week 9</h2>
         <h3>Assignment:  Sunny with chance of awesome</h3>    
         <h3 id="nameField"></h3>
     

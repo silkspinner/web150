@@ -160,7 +160,7 @@ var buildCurrent = function buildCurrent(city) {
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
                 ",US&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
-    
+    console.log(currentUrl);
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
@@ -174,7 +174,16 @@ var buildCurrent = function buildCurrent(city) {
             var sunsetDate = new Date(current.sys.sunset * 1000);
 
             mainRow += '<td><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
-            mainRow += '<td><p><b>' + current.weather[0].main + '</b></p><p>' + current.weather[0].description + '</p></td>';
+            
+            // process all weather objects
+            mainRow += '<td>';
+            for (type in current.weather) {
+                mainRow += '<p>' + current.weather[type].main + '</p>';
+                if (current.weather[type].main.toLowerCase() != current.weather[type].description.toLowerCase()) {
+                    mainRow += '<p>' + current.weather[type].description + '</p>';           
+                }
+            }
+            mainRow += '</td>';
             
             mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
  

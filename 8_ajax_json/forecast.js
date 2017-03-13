@@ -8,8 +8,26 @@ var months = ["January", "February", "March", "April", "May", "June",
 var iconUrl = "http://openweathermap.org/img/w/";
 
 var compass = function compass(degrees) {
+    // convert degrees into correct compass point notation
     var compassPoints = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-    var direction = Math.round((degrees)/22.5);
+    var direction = 0;
+
+    if (degrees > 11.25 && degrees <= 33.75) { direction = 1}
+    else if (degrees > 33.75 && degrees <= 56.25) { direction = 2}
+    else if (degrees > 56.25 && degrees <= 78.75) { direction = 3}
+    else if (degrees > 78.75 && degrees <= 101.25) { direction = 4}
+    else if (degrees > 101.25 && degrees <= 123.75) { direction = 5}
+    else if (degrees > 123.75 && degrees <= 146.25) { direction = 6}
+    else if (degrees > 146.25 && degrees <= 168.75) { direction = 7}
+    else if (degrees > 168.75 && degrees <= 191.25) { direction = 8}
+    else if (degrees > 191.25 && degrees <= 213.75) { direction = 9}
+    else if (degrees > 213.75 && degrees <= 236.25) { direction = 10}
+    else if (degrees > 236.25 && degrees <= 258.75) { direction = 11}
+    else if (degrees > 258.75 && degrees <= 281.25) { direction = 12}
+    else if (degrees > 281.25 && degrees <= 303.75) { direction = 13}
+    else if (degrees > 303.75 && degrees <= 326.25) { direction = 14}
+    else if (degrees > 326.25 && degrees <= 348.75) { direction = 15}
+    else { direction = 0};
     
     return compassPoints[direction];
 }
@@ -41,10 +59,10 @@ var trimForecast = function trimForecast(forecast) {
     for (idx in forecast.list) {
         // loop thru list, skip any entries for today
         checkDate = new Date(forecast.list[idx].dt_txt);
-
-        if (today != checkDate) {
+   
+        if (today.getDate() != checkDate.getDate()) {
             // add this non-today list object
-            newForcast.push(forecast.list[idx]);
+              newForcast.push(forecast.list[idx]);
         }
     }
     return newForcast;
@@ -56,7 +74,7 @@ var makeWeek = function makeWeek(forecast) {
     // loop through list of 3-hour forcasts
     // skip 3hour forcasts for Today
     // aggregate min and max temps for each day
-    // otherwise pull other info from forcast for targetHour entry
+    // otherwise pull other info from forcast  with targetHour timestamp
     
     // return this array
     var fdWeek = [];
@@ -126,7 +144,6 @@ var makeWeek = function makeWeek(forecast) {
 }
 
 var buildCurrent = function buildCurrent(city) {
-    // function buildCurrent
     // use city in getJSON to get current weather object from openweathermap.org
     // use data to populate Html Table rows
     
@@ -150,8 +167,8 @@ var buildCurrent = function buildCurrent(city) {
             
             mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
  
-            mainRow += '<td><p><img src="sunrise.jpg"></p><p>Sunrise</p><p><b>';
-            mainRow += sunriseDate.getHours() + ":" + sunriseDate.getMinutes() + " PST</b></p></td>";
+            mainRow += '<td><p>Sunrise</p><p><b>';
+            mainRow += sunriseDate.getHours() + ":" + sunriseDate.getMinutes() + ' PST</b></p><p><img src="sunrise.jpg"></p></td>';
 
             lastRow += "<td><b>" + current.main.humidity + "%</b><p>Humidity</p></td>";
             
@@ -161,8 +178,8 @@ var buildCurrent = function buildCurrent(city) {
             lastRow += '<td><p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
             lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p></td>';
             
-            lastRow += '<td><p><img src="sunset.jpg"></p><p>Sunset</p><p><b>';
-            lastRow += sunsetDate.getHours() + ":" + sunsetDate.getMinutes() + " PST</b></p></td>";
+            lastRow += '<td><p>Sunset</p><p><b>';
+            lastRow += sunsetDate.getHours() + ":" + sunsetDate.getMinutes() + ' PST</b></p><p><img src="sunset.jpg"></p></td>';
             
             // update the html rows
             $("#cw-main").html(mainRow);
@@ -171,12 +188,12 @@ var buildCurrent = function buildCurrent(city) {
         } else {
             // request failed
             console.out(status);
+            alert("Request for current weather data failed. Response status: " + status);
         }
     });
 }
 
 var buildForecast = function buildForecast(city) {
-    // function buildForecast
     // use city in getJSON to get forcast object from openweathermap.org
     // from forcast extract array thisWeek of 5 DayHtml objects
     // use thisWeek to populate Html Table rows
@@ -192,7 +209,7 @@ var buildForecast = function buildForecast(city) {
             var thisWeek = makeWeek(forecast);
    
             // update forcast table elements with the forcast
-            $("#fd-title").html("<h2>Five-day forecast for " + forecast.city.name + "</h2>");
+            $("#fd-title").html("<h2>5-day forecast for " + forecast.city.name + "</h2>");
             
             // initialize variables used to accumulate row info
             var dateRow = "", iconRow = "", descRow = "", hiTempRow = "";
@@ -223,6 +240,7 @@ var buildForecast = function buildForecast(city) {
         } else {
             // request failed
             console.out(status);
+            alert("Request for weather forcast data failed. Response status: " + status);
         }
     });
 };

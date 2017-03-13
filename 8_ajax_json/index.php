@@ -23,7 +23,7 @@
         </h3>
         <hr>
         <div id="getCity">
-            <p>City: <input type="text" id="city" value="Seattle"></p>
+            <p>Enter US City: <input type="text" id="city" value="Seattle"></p>
             <button>Get Forcast</button>
         </div>
         
@@ -60,10 +60,18 @@
     <script>
         $(document).ready(function(){
             $("button").click(function(){
-
-                buildCurrent($("#city").val());
-                buildForecast($("#city").val());
-
+                if ($("#city").val().length > 0) {
+                    if (/^[a-zA-Z]+$/.test($("#city").val())) {
+                        buildCurrent($("#city").val());
+                        buildForecast($("#city").val());
+                    }
+                    else {
+                        alert("Enter a proper US city name to get weather information.");
+                    }
+                } 
+                else {
+                    alert("Enter a US city name to get weather information.");
+                }
             });
         });
         

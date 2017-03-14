@@ -76,8 +76,16 @@ table p {
     vertical-align: text-top;
 }
 
+#desc p {
+    padding: 0 .5em;
+}
+
 #icon {
     vertical-align: bottom;
+}
+
+#icon img{
+    padding: 0 .5em;
 }
 
 img {

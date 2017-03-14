@@ -64,7 +64,8 @@ table p {
 
 #current td {
     width: 20%;
-    padding: .1em 0;}
+    padding: .1em .1em;
+}
 
 #colhead {
     font-weight: bold;

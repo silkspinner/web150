@@ -11,16 +11,8 @@
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
     </head>
     <body>
-        <h2>WEB150 Week 9</h2>
-        <h3>Assignment:  Sunny with chance of awesome</h3>    
-        <h3 id="nameField"></h3>
-    
-        <h3>
-            <script> 
-                var thisDate = new Date();
-                document.getElementById("nameField").innerHTML = 'Name: Ron Nims - Date: ' + thisDate.toDateString();
-            </script>
-        </h3>
+        <h1>City Weather Snapshot</h1>
+
         <hr>
         <div id="getCity">
             <p>Enter City: <input type="text" id="city" value="Seattle"></p>

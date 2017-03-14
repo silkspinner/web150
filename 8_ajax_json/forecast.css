@@ -72,8 +72,12 @@ table p {
     padding: .1em .1em;
 }
 
-#colhead {
-    font-weight: bold;
+#desc {
+    vertical-align: text-top;
+}
+
+#icon {
+    vertical-align: bottom;
 }
 
 img {

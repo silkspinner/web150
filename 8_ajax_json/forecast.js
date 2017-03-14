@@ -43,7 +43,7 @@ var compass = function compass(degrees) {
     return compassPoints[direction];
 }
 
-function DayHtml(date, icon, description, hiTemp, loTemp, humidity, pressure, windspeed, windangle) {
+function DayHtml(date, icon, description, hiTemp, loTemp, humidity, pressure, windspeed, windangle, windgust) {
     // define DayHtml object from weather data
     // each property contains fully marked-up html td element
 
@@ -57,8 +57,12 @@ function DayHtml(date, icon, description, hiTemp, loTemp, humidity, pressure, wi
     this.pressure = "<td><p>barometric</p><p>pressure</p><p><b>";
     this.pressure += Math.round(pressure) + " hPa</b></p></td>";
     this.winds = "<td><p>winds <b>" + Math.round(windspeed) + " mph</b></p>";
-    this.winds += "<p>from <b>" + compass(Math.round(windangle)) + "</b></p></td>";
-    
+    this.winds += "<p>from <b>" + compass(Math.round(windangle)) + "</b></p>";
+    // if the wind gust value is included add it to winds display
+    if (windgust > 0) {
+        this.winds += "<p>Gusts to <b>" + Math.round(windgust) + " mph</b></p>";
+    }
+    this.winds += "</td>"
 }
 
 var trimForecast = function trimForecast(forecast) {
@@ -97,7 +101,7 @@ var makeWeek = function makeWeek(forecast) {
     // set of variables used to instantiate DayHtml objects
     var dayIcon = "", dayDescription = "";
     var dayMaxTemp = -200, dayMinTemp = 200;
-    var dayHumidity = 0, dayPressure = 0, dayWindSpeed = 0, dayWindAnge = 0;
+    var dayHumidity = 0, dayPressure = 0, dayWindSpeed = 0, dayWindAngle = 0, dayWindGust = 0;
 
     // remove any forcast entries for today
     var fdForecast = trimForecast(forecast);
@@ -115,7 +119,7 @@ var makeWeek = function makeWeek(forecast) {
         if ( checkDay != compareDay) {
             // encountered next day, so create DayHtml for this day and reset check dates and min/max temps
             fdDay = new DayHtml(checkDate, dayIcon, dayDescription, dayMaxTemp, dayMinTemp,
-                                dayHumidity, dayPressure, dayWindSpeed, dayWindAnge);
+                                dayHumidity, dayPressure, dayWindSpeed, dayWindAngle, dayWindGust);
             fdWeek.push(fdDay);
             
             checkDate = compareDate;
@@ -129,11 +133,18 @@ var makeWeek = function makeWeek(forecast) {
         if ( compareDate.getHours() == targetHour) {
 
             dayIcon = fdForecast[idx].weather[0].icon;
+            // always use daytime version of icons for forcasts
+            dayIcon = dayIcon.slice(0, dayIcon.length - 1) + "d";
+
             dayDescription = fdForecast[idx].weather[0].description;
             dayHumidity = fdForecast[idx].main.humidity ;
             dayPressure = fdForecast[idx].main.pressure;
             dayWindSpeed = fdForecast[idx].wind.speed;
-            dayWindAnge = fdForecast[idx].wind.deg;
+            dayWindAngle = fdForecast[idx].wind.deg;
+            // if the wind gust value is included add it to winds display
+            if (typeof(fdForecast[idx].wind.gust) != 'undefined') {
+                dayWindGust = fdForecast[idx].wind.gust;                
+            }
         }
 
         // update min and max temps if neccesary 
@@ -148,7 +159,7 @@ var makeWeek = function makeWeek(forecast) {
 
     // add object for last day
     fdDay = new DayHtml(checkDate, dayIcon, dayDescription, dayMaxTemp, dayMinTemp,
-                        dayHumidity, dayPressure, dayWindSpeed, dayWindAnge);
+                        dayHumidity, dayPressure, dayWindSpeed, dayWindAngle, dayWindGust);
     fdWeek.push(fdDay);
     
     return fdWeek;
@@ -160,24 +171,24 @@ var buildCurrent = function buildCurrent(city) {
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
                 "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
-
+    console.log(currentUrl);
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
             // handle successful request
 
-            $("#cw-title").html("<p><h2>Current weather for " + current.name + ", " + current.sys.country + "</h2></p>");
+            $("#cw-title").html('<p><h2>Current weather for ' + current.name + ', ' + current.sys.country + '</h2></p>');
             
             // initialize variables used to accumulate row info
             var mainRow = "", lastRow = "";
             var sunriseDate = new Date(current.sys.sunrise * 1000);
             var sunsetDate = new Date(current.sys.sunset * 1000);
 
-            mainRow += '<td><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
+            mainRow += '<td id="icon"><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
             
             mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
             
-            mainRow += "<td><b>" + current.main.humidity + "%</b><p>Humidity</p></td>";
+            mainRow += '<td><b>' + current.main.humidity + '%</b><p>Humidity</p></td>';
 
             mainRow += '<td><p>barometric</p><p>pressure</p><p><b>';
             mainRow += Math.round(current.main.pressure) + " hPa</b></p></td>";
@@ -185,25 +196,31 @@ var buildCurrent = function buildCurrent(city) {
             mainRow += '<td><p>Sunrise</p><p>' + makeTime(sunriseDate) +  '</p><p><img src="sunrise.jpg"></p></td>';
 
             // process all weather objects
-            lastRow += '<td>';
+            lastRow += '<td id="desc"><b>';
             for (type in current.weather) {
                 lastRow += '<p>' + current.weather[type].main + '</p>';
                 if (current.weather[type].main.toLowerCase() != current.weather[type].description.toLowerCase()) {
                     lastRow += '<p>' + current.weather[type].description + '</p>';           
                 }
             }
-            lastRow += '</td>';
+            lastRow += '</b></td>';
             
             if (current.clouds.all == 1){
-                lastRow += "<td><p>Cloudcover</p><p><b>Zero %</b></p></td>";
+                lastRow += '<td><p>Cloudcover</p><p><b>Zero %</b></p></td>';
             }
             else {
-                lastRow += "<td><p>Cloudcover</p><p><b>" + Math.round(current.clouds.all) + "%</b></p></td>";
+                lastRow += '<td><p>Cloudcover</p><p><b>' + Math.round(current.clouds.all) + '%</b></p></td>';
             }
 
             lastRow += '<td><p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
-            lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p></td>';
-            
+            lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
+
+            // if the wind gust value is included add it to winds display
+            if (typeof(current.wind.gust) != 'undefined') {
+                lastRow += '<p>Gusts to <b>' + Math.round(current.wind.gust) + ' mph</b></p>';              
+            }
+            lastRow += '</td>';
+  
             lastRow += '<td><p>Visibility</p><p><b>' + Math.round(current.visibility) + ' ft</b></p></td>';
             
             lastRow += '<td><p>Sunset</p><p>' + makeTime(sunsetDate) +  '</p><p><img src="sunset.jpg"></p></td>';

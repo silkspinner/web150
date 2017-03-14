@@ -62,6 +62,9 @@ function DayHtml(date, icon, description, hiTemp, loTemp, humidity, pressure, wi
     if (windgust > 0) {
         this.winds += "<p>Gusts to <b>" + Math.round(windgust) + " mph</b></p>";
     }
+    else {
+        
+    }
     this.winds += "</td>"
 }
 
@@ -139,11 +142,15 @@ var makeWeek = function makeWeek(forecast) {
             dayDescription = fdForecast[idx].weather[0].description;
             dayHumidity = fdForecast[idx].main.humidity ;
             dayPressure = fdForecast[idx].main.pressure;
-            dayWindSpeed = fdForecast[idx].wind.speed;
             dayWindAngle = fdForecast[idx].wind.deg;
             // if the wind gust value is included add it to winds display
             if (typeof(fdForecast[idx].wind.gust) != 'undefined') {
-                dayWindGust = fdForecast[idx].wind.gust;                
+                // current API has bug speed and gust reversed when gust is present
+                dayWindGust = fdForecast[idx].wind.speed;                
+                dayWindSpeed = fdForecast[idx].wind.gust;
+            }
+            else {
+              dayWindSpeed = fdForecast[idx].wind.speed;
             }
         }
 
@@ -171,7 +178,7 @@ var buildCurrent = function buildCurrent(city) {
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
                 "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
-    console.log(currentUrl);
+    // console.log(currentUrl);
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
@@ -212,12 +219,18 @@ var buildCurrent = function buildCurrent(city) {
                 lastRow += '<td><p>Cloudcover</p><p><b>' + Math.round(current.clouds.all) + '%</b></p></td>';
             }
 
-            lastRow += '<td><p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
-            lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
+            lastRow += '<td>';
 
             // if the wind gust value is included add it to winds display
             if (typeof(current.wind.gust) != 'undefined') {
-                lastRow += '<p>Gusts to <b>' + Math.round(current.wind.gust) + ' mph</b></p>';              
+                // current API has bug speed and gust reversed when gust is present
+                lastRow += '<p>Winds <b>' + Math.round(current.wind.gust) + ' mph</b></p>';
+                lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
+                lastRow += '<p>Gusts to <b>' + Math.round(current.wind.speed) + ' mph</b></p>';              
+            }
+            else {
+                lastRow += '<p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
+                lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
             }
             lastRow += '</td>';
   

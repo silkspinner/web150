@@ -16,7 +16,7 @@
         <hr>
         <div id="getCity">
             <p>Enter City: <input type="text" id="city" value="Seattle"></p>
-            <button>Get Forecast</button>
+            <button>Get Weather</button>
         </div>
         
          <table id="current">
@@ -58,11 +58,11 @@
                         buildForecast($("#city").val());
                     }
                     else {
-                        alert("Enter a proper US city name to get weather information.");
+                        alert("Enter a proper city name to get weather information.");
                     }
                 } 
                 else {
-                    alert("Enter a US city name to get weather information.");
+                    alert("Enter a city name to get weather information.");
                 }
             });
         });

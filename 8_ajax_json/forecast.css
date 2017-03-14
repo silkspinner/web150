@@ -5,7 +5,6 @@ html {
     padding:1em;
     max-width: 800px;
     min-width: 320px;
-    
 }
 
 div {
@@ -16,6 +15,7 @@ div {
 h1 {
     margin: .5em auto;
     font-family: 'Bubblegum Sans', cursive;
+    color: orange;
 }
 
 h2 {
@@ -64,7 +64,7 @@ table p {
 
 #fiveDay td {
     width: 20%;
-    padding: .25em 1em;
+    padding: .25em .5em;
 }
 
 #current td {

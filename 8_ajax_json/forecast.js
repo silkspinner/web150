@@ -193,7 +193,7 @@ var buildCurrent = function buildCurrent(city) {
 
             mainRow += '<td id="icon"><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
             
-            mainRow += '<td><p>Tempurature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
+            mainRow += '<td><p>Temperature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
             
             mainRow += '<td><b>' + current.main.humidity + '%</b><p>Humidity</p></td>';
 

@@ -18,6 +18,21 @@ var makeTime = function makeTime(myDate) {
     return timeStr;
 }
 
+var processPage = function processPage() {
+    if ($("#city").val().length > 0) {
+        if (/^[a-zA-Z\s,]+$/.test($("#city").val())) {
+            buildCurrent($("#city").val());
+            buildForecast($("#city").val());
+        }
+        else {
+            alert("Enter a proper city name to get weather information.");
+        }
+    } 
+    else {
+        alert("Enter a city name to get weather information.");
+    }
+}
+
 var compass = function compass(degrees) {
     // convert degrees into correct compass point notation
     var compassPoints = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];

@@ -52,18 +52,13 @@
     <script>
         $(document).ready(function(){
             $("button").click(function(){
-                if ($("#city").val().length > 0) {
-                    if (/^[a-zA-Z\s,]+$/.test($("#city").val())) {
-                        buildCurrent($("#city").val());
-                        buildForecast($("#city").val());
-                    }
-                    else {
-                        alert("Enter a proper city name to get weather information.");
-                    }
-                } 
-                else {
-                    alert("Enter a city name to get weather information.");
-                }
+                    processPage();
+            });
+            
+            $('#city').keypress(function (e) {
+                 var key = e.which;
+                 if(key == 13)  // the enter key code
+                    processPage();
             });
         });
         

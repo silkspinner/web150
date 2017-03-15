@@ -6,7 +6,6 @@
     <head>
         <link rel="stylesheet" href="forecast.css" />
         <script src="forecast.js"></script>    
-        <script src="underscore.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
     </head>

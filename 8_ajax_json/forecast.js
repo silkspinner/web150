@@ -317,4 +317,3 @@ var buildForecast = function buildForecast(city) {
     });
 };
 
-

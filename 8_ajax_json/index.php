@@ -44,11 +44,7 @@
                 <tr id="fd-winds"></tr>
             </tbody>
         </table>
-
-    <script type="text/JavaScript" >
-
-    </script>
-        
+ 
     <script>
         $(document).ready(function(){
             $("button").click(function(){
@@ -63,5 +59,5 @@
         });
         
     </script>
-
+        
 </html> 

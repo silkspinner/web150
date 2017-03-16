@@ -16,7 +16,8 @@ div {
 }
 
 h1 {
-    margin: .5em auto;
+    margin: .5em 0;
+    padding-left: 1em;
     font-family: 'Bubblegum Sans', cursive;
     color: darkblue;
 }
@@ -31,6 +32,14 @@ p {
     font-size: larger;
 }
 
+#logo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    text-align: left;
+}
+
 #groups {
     margin: 1em auto;
     border: solid 2px darkblue;
@@ -38,14 +47,19 @@ p {
     width: 100%;
     background-color: white;
     font-family: 'Merriweather Sans', sans-serif;
+    cursor: default;
 }
 
-#groups tr {
-    border-bottom: solid 1px darkblue;    
+table.sortable tbody tr:nth-child(2n) td {
+    background: white;
 }
 
-.highlight {
-    background-color: #eee;
+table.sortable tbody tr:nth-child(2n+1) td {
+    background: #eee;
+}
+
+th, td {
+    padding: .25em;    
 }
 
 .region {

@@ -6,18 +6,22 @@
     <head>
         <link rel="stylesheet" href="community.css" />
         <script src="community.js"></script>    
+        <script src="sorttable.js"></script>
         <script src="underscore.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans|Merriweather+Sans" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1>Seattle Online Community Organizations</h1>
+            <div id="logo">
+                <a href="http://www.seattle.gov/" target="_blank"><img src="seattle-logo.png" height="70" width="70"></a>
+                <h1>Seattle Online Community Organizations</h1>
+            </div>
             <p>A live list of Seattle's Online Community groups provided by <a href="https://dev.socrata.com/foundry/data.seattle.gov/y7iv-rz67">data.seattle.gov</a>,
                 providing a website link and email contact if available.</p>
-            <hr>
+
         </header>
-        <table id="groups">
+        <table id="groups" class="sortable">
             <thead>
                 <tr class="highlight">
                     <th class="region">Region</th>
@@ -27,22 +31,21 @@
                     <th class="type">Group Type</th>
                     <th class="email">Email</th>
                 </tr>
-           </thead>
+            </thead>
             <tbody id="groupsBody">
                 
-           <!-- BEGIN: Underscore Template Definition. -->
+            <!-- BEGIN: Underscore Template Definition. -->
             <script type="text/template" class="template">
 
                 <% _.each( groupsObj, function( listItem, index ){ %>
                 
-                    <tr<% if ((index + 1) % 2 == 0) { %> class="highlight"<% } %>>
-                    
-                    <td class="region"><%- listItem.region %></td>
-                    <td class="hood"><%- listItem.neighborhood %></td>
-                    <td class="category"><%- listItem.category %></td>
-                    <td class="name"><a href="<%- listItem.url %>"><%- listItem.name %></a></td>
-                    <td class="type"><%- listItem.type %></td>
-                    <td class="email"><%- listItem.email_contact %></td>
+                    <tr>
+                        <td class="region"><%- listItem.region %></td>
+                        <td class="hood"><%- listItem.neighborhood %></td>
+                        <td class="category"><%- listItem.category %></td>
+                        <td class="name"><a href="<%- listItem.url %>"><%- listItem.name %></a></td>
+                        <td class="type"><%- listItem.type %></td>
+                        <td class="email"><%- listItem.email_contact %></td>
                     </tr>
                     
                 <% }); %>

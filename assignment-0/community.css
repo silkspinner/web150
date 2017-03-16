@@ -1,0 +1,81 @@
+/* Community Group Styles */
+
+html {
+    background-color: lightblue;
+    padding:1em;
+    min-width: 320px;
+}
+
+div {
+    margin: .5em;
+    font-size: larger;
+}
+
+h1 {
+    margin: .5em auto;
+    font-family: 'Bubblegum Sans', cursive;
+    color: darkblue;
+}
+
+h2 {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+p {    
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+#groups {
+    margin: 1em auto;
+    border: solid 2px darkblue;
+    border-radius: .25em;
+    width: 100%;
+    background-color: white;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+#groups tr {
+    border-bottom: solid 1px darkblue;    
+}
+
+
+.region {
+    width: 7%;
+        text-align: center;
+}
+
+.hood {
+    width: 12%;
+    text-align: left;
+}
+
+.category {
+    width: 15%;
+    text-align: left;
+}
+
+.name {
+    width: 32%;
+    text-align: left;
+}
+
+.type {
+    width: 10%;
+    text-align: left;
+}
+
+.email {
+    width: 20%;
+    text-align: left;
+}
+
+table p {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}

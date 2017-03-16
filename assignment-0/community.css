@@ -6,6 +6,10 @@ html {
     min-width: 320px;
 }
 
+header {
+    padding: 0 1em;
+}
+
 div {
     margin: .5em;
     font-size: larger;
@@ -24,6 +28,7 @@ h2 {
 
 p {    
     font-family: 'Merriweather Sans', sans-serif;
+    font-size: larger;
 }
 
 #groups {
@@ -39,6 +44,9 @@ p {
     border-bottom: solid 1px darkblue;    
 }
 
+.highlight {
+    background-color: #eee;
+}
 
 .region {
     width: 7%;

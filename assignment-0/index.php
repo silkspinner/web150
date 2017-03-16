@@ -11,14 +11,15 @@
         <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans|Merriweather+Sans" rel="stylesheet">
     </head>
     <body>
-        <h1>Seattle Online Community Organizations</h1>
-        <p>A list of Seattle's Online Community groups provided by <a href="https://dev.socrata.com/foundry/data.seattle.gov/y7iv-rz67">data.seattle.gov</a>,
-            providing an email contact and website link if available.</p>
-        <hr>
-       
+        <header>
+            <h1>Seattle Online Community Organizations</h1>
+            <p>A live list of Seattle's Online Community groups provided by <a href="https://dev.socrata.com/foundry/data.seattle.gov/y7iv-rz67">data.seattle.gov</a>,
+                providing a website link and email contact if available.</p>
+            <hr>
+        </header>
         <table id="groups">
             <thead>
-                <tr>
+                <tr class="highlight">
                     <th class="region">Region</th>
                     <th class="hood">Neighborhood</th>
                     <th class="category">Category</th>
@@ -32,8 +33,10 @@
            <!-- BEGIN: Underscore Template Definition. -->
             <script type="text/template" class="template">
 
-                <% _.each( groupsObj, function( listItem ){ %>
-                    <tr>
+                <% _.each( groupsObj, function( listItem, index ){ %>
+                
+                    <tr<% if ((index + 1) % 2 == 0) { %> class="highlight"<% } %>>
+                    
                     <td class="region"><%- listItem.region %></td>
                     <td class="hood"><%- listItem.neighborhood %></td>
                     <td class="category"><%- listItem.category %></td>
@@ -41,6 +44,7 @@
                     <td class="type"><%- listItem.type %></td>
                     <td class="email"><%- listItem.email_contact %></td>
                     </tr>
+                    
                 <% }); %>
 
             </script>
@@ -53,7 +57,7 @@
     <script>
         $(document).ready(function(){
             processPage();
-            refreshTable();
+            //refreshTable();
         });
     </script>        
         

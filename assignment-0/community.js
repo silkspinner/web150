@@ -2,12 +2,6 @@
 // 03/15/2017 Ron Nims
 
 
-var refreshTable = function refreshTable() {
-    // set all rows with no background, then set odd rows with beige background
-    $("tr:visible").css("background-color", "white");    
-    $("tr:visible:even  ").css("background-color", "#eee");    
-};
-
 var processPage = function processPage() {
 
     _.templateSettings.variable = "groupsObj";

@@ -6,6 +6,8 @@ var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
 var months = ["January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"];
 var iconUrl = "http://openweathermap.org/img/w/";
+// globalish var to contain city info
+var cityInfo = {name: "Seattle", lon: -118.24, lat: 34.05};
 
 var padDigit = function padDigit(myNumber) {
     // add leading zero to single digits
@@ -23,6 +25,7 @@ var processPage = function processPage() {
         if (/^[a-zA-Z\s,]+$/.test($("#city").val())) {
             buildCurrent($("#city").val());
             buildForecast($("#city").val());
+            $("#city").select();
         }
         else {
             alert("Enter a proper city name to get weather information.");
@@ -129,11 +132,12 @@ var makeWeek = function makeWeek(forecast) {
     
     var compareDate = Date;
     var compareDay = 0;
+
    
     for (idx in fdForecast) {
         compareDate = new Date(fdForecast[idx].dt_txt);
         compareDay = compareDate.getDate();
-
+  
         if ( checkDay != compareDay) {
             // encountered next day, so create DayHtml for this day and reset check dates and min/max temps
             fdDay = new DayHtml(checkDate, dayIcon, dayDescription, dayMaxTemp, dayMinTemp,
@@ -198,7 +202,13 @@ var buildCurrent = function buildCurrent(city) {
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
             // handle successful request
+            
+            // set global city info
+            cityInfo.name = current.name;
+            cityInfo.lon = current.coord.lon;
+            cityInfo.lat = current.coord.lat;
 
+            //set title
             $("#cw-title").html('<p><h2>Current weather for ' + current.name + ', ' + current.sys.country + '</h2></p>');
             
             // initialize variables used to accumulate row info
@@ -273,6 +283,7 @@ var buildForecast = function buildForecast(city) {
     var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city +
                 "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
 
+    // console.log(forcastUrl);
     // request 5 day forcast JSON data from weather service
     $.getJSON(forcastUrl, function (forecast, status) {
         if (status === "success") {

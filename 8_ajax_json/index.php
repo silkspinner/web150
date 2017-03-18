@@ -43,7 +43,12 @@
                 <tr id="fd-winds"></tr>
             </tbody>
         </table>
- 
+        
+        <div id="footer">
+            <p>Weather information provided by</p>
+            <p><a href="http://openweathermap.org" target="_blank"><img src="logo_OpenWeatherMap.svg" alt="OpenWeatherMap.com logo"   width="200" id="owmlogo"></a></p>
+        </div>
+        
     <script>
         $(document).ready(function(){
             $("button").click(function(){

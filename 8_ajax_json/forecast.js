@@ -208,13 +208,19 @@ var buildCurrent = function buildCurrent(city) {
             cityInfo.lon = current.coord.lon;
             cityInfo.lat = current.coord.lat;
 
+            var cityDate = new Date(current.dt * 1000);
+            var cityDateText = months[cityDate.getMonth()] + ' ' + cityDate.getDay() + ' ' + cityDate.getHours() + ':00';
+            
             //set title
-            $("#cw-title").html('<p><h2>Current weather for ' + current.name + ', ' + current.sys.country + '</h2></p>');
+            $("#cw-title").html('<p><h2>Current weather for ' + current.name + ', ' + current.sys.country +
+                                ' as of ' + cityDateText + '</h2></p>');
             
             // initialize variables used to accumulate row info
             var mainRow = "", lastRow = "";
+            
             var sunriseDate = new Date(current.sys.sunrise * 1000);
             var sunsetDate = new Date(current.sys.sunset * 1000);
+
 
             mainRow += '<td id="icon"><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
             

@@ -15,7 +15,7 @@ div {
 h1 {
     margin: .5em auto;
     font-family: 'Bubblegum Sans', cursive;
-    color: orange;
+    color: #ff8c18;
 }
 
 h2 {
@@ -40,9 +40,6 @@ table {
     color: darkblue;
 }
 
-#getCity {
-    margin: auto;    
-}
 
 #fd-hightemp {
     color: red;
@@ -93,6 +90,10 @@ img {
     padding: 0;
 }
 
+#owmlogo {
+    padding-left: 1em;    
+}
+
 input {
     font-size: 1em;
     font-family: 'Bubblegum Sans', cursive;
@@ -114,5 +115,18 @@ button {
     align-items: center;
     max-width: 24em;
     font-family: 'Bubblegum Sans', cursive;
+    margin: auto;    
 }
+
+div#footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    max-width: 24em;
+    font-family: 'Bubblegum Sans', cursive;
+    margin: auto;    
+}
+
 

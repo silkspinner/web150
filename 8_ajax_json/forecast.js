@@ -1,13 +1,18 @@
 // WEB150 WN17 - Week 9 - Sunny with a chance of Awesome
 // 03/08/2017 Ron Nims
 
-
+// GLOBAL CONSTANTS
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 var months = ["January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"];
 var iconUrl = "http://openweathermap.org/img/w/";
-// globalish var to contain city info
+
+// global var to contain city info
 var cityInfo = {name: "Seattle", lon: -118.24, lat: 34.05};
+
+// global var for chart information
+var chartInfo = {};
+chartInfo.data = [];
 
 var padDigit = function padDigit(myNumber) {
     // add leading zero to single digits
@@ -18,6 +23,14 @@ var makeTime = function makeTime(myDate) {
     // make 'HH:SS PST' time format
     var timeStr = myDate.getHours() + ":" + padDigit(myDate.getMinutes());
     return timeStr;
+}
+
+var cToF = function cToF(celsius) {
+    return (celsius * (9/5)) + 32
+}
+
+var mpsToMph = function mpsToMph(mps) {
+    return (mps * 2.2369)
 }
 
 var processPage = function processPage() {
@@ -61,30 +74,45 @@ var compass = function compass(degrees) {
     return compassPoints[direction];
 }
 
-function DayHtml(date, icon, description, hiTemp, loTemp, humidity, pressure, windspeed, windangle, windgust) {
+function DayHtml(onedayData) {
     // define DayHtml object from weather data
     // each property contains fully marked-up html td element
+    var dayDate = new Date(onedayData.date);
 
-    this.dayName = "<td><p><b>" + weekdays[date.getDay()] + "</b></p>";
-    this.dayName += "<p>" + months[date.getMonth()] + " " + date.getDate() + "</p></td>";
-    this.iconUrl = '<td><img src="' + iconUrl + icon + '.png" height="70" width="70"></td>';
-    this.description = "<td><b>" + description + "</b></td>";
-    this.hiTemp = "<td><b>High " + hiTemp + "°F</b></td>";
-    this.loTemp = "<td><b>Low " + loTemp + "°F</b></td>";
-    this.humidity = "<td><b>" + humidity + "%</b> humidity</td>";
+    this.dayName = "<td><p><b>" + weekdays[dayDate.getDay()] + "</b></p>";
+    this.dayName += "<p>" + months[dayDate.getMonth()] + " " + dayDate.getDate() + "</p></td>";
+    this.iconUrl = '<td><img src="' + iconUrl + onedayData.icon + '.png" height="70" width="70"></td>';
+    this.description = "<td><b>" + onedayData.description + "</b></td>";
+    this.hiTemp = "<td><b>High " + onedayData.hiTemp + "°F</b></td>";
+    this.loTemp = "<td><b>Low " + onedayData.loTemp + "°F</b></td>";
+    this.humidity = "<td><b>" + onedayData.humidity + "%</b> humidity</td>";
     this.pressure = "<td><p>barometric</p><p>pressure</p><p><b>";
-    this.pressure += Math.round(pressure) + " hPa</b></p></td>";
-    this.winds = "<td><p>winds <b>" + Math.round(windspeed) + " mph</b></p>";
-    this.winds += "<p>from <b>" + compass(Math.round(windangle)) + "</b></p>";
+    this.pressure += onedayData.pressure + " hPa</b></p></td>";
+    this.winds = "<td><p>winds <b>" + onedayData.wind.speed + " mph</b></p>";
+    this.winds += "<p>from <b>" + onedayData.wind.angle + "</b></p>";
     // if the wind gust value is included add it to winds display
-    if (windgust > 0) {
-        this.winds += "<p>Gusts to <b>" + Math.round(windgust) + " mph</b></p>";
+    if (onedayData.wind.gust > 0) {
+        this.winds += "<p>Gusts to <b>" + onedayData.wind.gust + " mph</b></p>";
     }
     else {
         
     }
     this.winds += "</td>"
 }
+
+function DayData() {
+    // define DayHtml object from weather data
+    // each property contains fully marked-up html td element
+
+    this.date = Date;
+    this.icon = '';
+    this.description = '';
+    this.hiTemp = -200;
+    this.loTemp = 200;
+    this.humidity = 0;
+    this.pressure = 0;
+    this.wind = {speed: 0, angle: 0, gust: 0};
+ }
 
 var trimForecast = function trimForecast(forecast) {
     // function to return array of forecast.list items not dated today
@@ -114,78 +142,87 @@ var makeWeek = function makeWeek(forecast) {
     
     // return this array
     var fdWeek = [];
-    var fdDay = DayHtml;
     
     // hour of the day forcast chosen to pull days data other than temps        
     var targetHour = 15;      
 
-    // set of variables used to instantiate DayHtml objects
-    var dayIcon = "", dayDescription = "";
-    var dayMaxTemp = -200, dayMinTemp = 200;
-    var dayHumidity = 0, dayPressure = 0, dayWindSpeed = 0, dayWindAngle = 0, dayWindGust = 0;
+    // establish ojects used for data collections
+    var fdDay = DayHtml;
+    var data = {};
 
+    // create DayData object to hold daily info while traversing that day
+    var todayData = new DayData();
+ 
     // remove any forcast entries for today
     var fdForecast = trimForecast(forecast);
-    
-    var checkDate = new Date(fdForecast[0].dt_txt);
-    var checkDay = checkDate.getDate();
-    
-    var compareDate = Date;
-    var compareDay = 0;
 
-   
+    var checkDate= new Date(fdForecast[0].dt_txt);
+    var compareDate = Date;
+
+    // loop through all forecast items
+    // build chartInfor.data array for drawing chart
+    // and build fdWeek array for forcast table
     for (idx in fdForecast) {
         compareDate = new Date(fdForecast[idx].dt_txt);
-        compareDay = compareDate.getDate();
-  
-        if ( checkDay != compareDay) {
-            // encountered next day, so create DayHtml for this day and reset check dates and min/max temps
-            fdDay = new DayHtml(checkDate, dayIcon, dayDescription, dayMaxTemp, dayMinTemp,
-                                dayHumidity, dayPressure, dayWindSpeed, dayWindAngle, dayWindGust);
+     
+        //write data to chart array for very 3hour forcast
+        data = {date: compareDate,
+                icon: fdForecast[idx].weather[0].icon,
+                description: fdForecast[idx].weather[0].description,
+                temp: Math.round(cToF(fdForecast[idx].main.temp)),
+                humidity: Math.round(fdForecast[idx].main.humidity),
+                pressure: Math.round(fdForecast[idx].main.pressure),
+                wind: {speed: Math.round(mpsToMph(fdForecast[idx].wind.speed)),
+                    angle: compass(Math.round(mpsToMph(fdForecast[idx].wind.deg)))}}
+        chartInfo.data.push(data);
+    
+        if ( checkDate.getDate() != compareDate.getDate() ) {
+            // encountered next day, so create DayHtml for this day and reinitialize todayData
+
+            fdDay = new DayHtml(todayData);
             fdWeek.push(fdDay);
             
-            checkDate = compareDate;
-            checkDay = compareDay;
+            todayData = new DayData();
+            todayData.date = checkDate;
 
-            dayMinTemp = 200;
-            dayMaxTemp = -200;
+            // update checkDate
+            checkDate = compareDate;
         }
         
-        // if this forecast item matches targetHour then expract general data
+        // if this forecast item matches targetHour then extract general data
+
         if ( compareDate.getHours() == targetHour) {
-
-            dayIcon = fdForecast[idx].weather[0].icon;
+            todayData.icon = fdForecast[idx].weather[0].icon;
             // always use daytime version of icons for forcasts
-            dayIcon = dayIcon.slice(0, dayIcon.length - 1) + "d";
+            todayData.icon = todayData.icon.slice(0, todayData.icon.length - 1) + "d";
 
-            dayDescription = fdForecast[idx].weather[0].description;
-            dayHumidity = fdForecast[idx].main.humidity ;
-            dayPressure = fdForecast[idx].main.pressure;
-            dayWindAngle = fdForecast[idx].wind.deg;
+            todayData.description = fdForecast[idx].weather[0].description;
+            todayData.humidity = Math.round(fdForecast[idx].main.humidity);
+            todayData.pressure = Math.round(fdForecast[idx].main.pressure);
+            todayData.wind.angle = compass(Math.round(fdForecast[idx].wind.deg)) ;
             // if the wind gust value is included add it to winds display
             if (typeof(fdForecast[idx].wind.gust) != 'undefined') {
                 // current API has bug speed and gust reversed when gust is present
-                dayWindGust = fdForecast[idx].wind.speed;                
-                dayWindSpeed = fdForecast[idx].wind.gust;
+                todayData.wind.speed = Math.round(mpsToMph(fdForecast[idx].wind.speed));                
+                todayData.wind.gust = Math.round(mpsToMph(fdForecast[idx].wind.gust));
             }
             else {
-              dayWindSpeed = fdForecast[idx].wind.speed;
+                todayData.wind.speed = Math.round(mpsToMph(fdForecast[idx].wind.speed));
             }
         }
 
         // update min and max temps if neccesary 
-        if ( dayMinTemp > Math.round(fdForecast[idx].main.temp) ) {
-            dayMinTemp = Math.round(fdForecast[idx].main.temp);
+        if ( todayData.loTemp > Math.round(cToF(fdForecast[idx].main.temp)) ) {
+            todayData.loTemp = Math.round(cToF(fdForecast[idx].main.temp))  ;
         }
 
-        if ( dayMaxTemp < Math.round(fdForecast[idx].main.temp) ) {
-            dayMaxTemp = Math.round(fdForecast[idx].main.temp);
+        if ( todayData.hiTemp < Math.round(cToF(fdForecast[idx].main.temp)) ) {
+            todayData.hiTemp = Math.round(cToF(fdForecast[idx].main.temp));
         }
     }
 
     // add object for last day
-    fdDay = new DayHtml(checkDate, dayIcon, dayDescription, dayMaxTemp, dayMinTemp,
-                        dayHumidity, dayPressure, dayWindSpeed, dayWindAngle, dayWindGust);
+    fdDay = new DayHtml(todayData);
     fdWeek.push(fdDay);
     
     return fdWeek;
@@ -196,8 +233,8 @@ var buildCurrent = function buildCurrent(city) {
     // use data to populate Html Table rows
     
     var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city +
-                "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
-    // console.log(currentUrl);
+               "&units=metric&appid=9b98b2bff9b27e273ccf886e1e20856e";
+
     // request current weather JSON data from weather service
     $.getJSON(currentUrl, function (current, status) {
         if (status === "success") {
@@ -209,10 +246,14 @@ var buildCurrent = function buildCurrent(city) {
             cityInfo.lat = current.coord.lat;
 
             var cityDate = new Date(current.dt * 1000);
-            var cityDateText = months[cityDate.getMonth()] + ' ' + cityDate.getDay() + ' ' + cityDate.getHours() + ':00';
+            var cityHours = cityDate.getHours() + ':00';
+            if (cityDate.getHours() == "0") {
+                cityHours = "Midnight"
+            }
+            var cityDateText = months[cityDate.getMonth()] + ' ' + cityDate.getDay() + ' at ' + cityHours;
             
             //set title
-            $("#cw-title").html('<p><h2>Current weather for ' + current.name + ', ' + current.sys.country +
+            $("#cw-title").html('<p><h2>Weather for ' + current.name + ', ' + current.sys.country +
                                 ' as of ' + cityDateText + '</h2></p>');
             
             // initialize variables used to accumulate row info
@@ -221,19 +262,15 @@ var buildCurrent = function buildCurrent(city) {
             var sunriseDate = new Date(current.sys.sunrise * 1000);
             var sunsetDate = new Date(current.sys.sunset * 1000);
 
-
+            // process all weather data into mainRow and lastRow
             mainRow += '<td id="icon"><img src="' + iconUrl + current.weather[0].icon + '.png" height="100" width="100"></td>';
-            
-            mainRow += '<td><p>Temperature</p><p><b>' + Math.round(current.main.temp) + ' °F</b></p></td>';
-            
+            mainRow += '<td><p>Temperature</p><p><b>' + Math.round(cToF(current.main.temp)) + ' °F</b></p></td>';
             mainRow += '<td><b>' + current.main.humidity + '%</b><p>Humidity</p></td>';
-
             mainRow += '<td><p>barometric</p><p>pressure</p><p><b>';
             mainRow += Math.round(current.main.pressure) + " hPa</b></p></td>";
-
             mainRow += '<td><p>Sunrise</p><p>' + makeTime(sunriseDate) +  '</p><p><img src="sunrise.jpg"></p></td>';
 
-            // process all weather objects
+
             lastRow += '<td id="desc"><b>';
             for (type in current.weather) {
                 lastRow += '<p>' + current.weather[type].main + '</p>';
@@ -242,31 +279,25 @@ var buildCurrent = function buildCurrent(city) {
                 }
             }
             lastRow += '</b></td>';
-            
             if (current.clouds.all == 1){
                 lastRow += '<td><p>Cloudcover</p><p><b>Zero %</b></p></td>';
             }
             else {
                 lastRow += '<td><p>Cloudcover</p><p><b>' + Math.round(current.clouds.all) + '%</b></p></td>';
             }
-
             lastRow += '<td>';
-
-            // if the wind gust value is included add it to winds display
             if (typeof(current.wind.gust) != 'undefined') {
                 // current API has bug speed and gust reversed when gust is present
-                lastRow += '<p>Winds <b>' + Math.round(current.wind.gust) + ' mph</b></p>';
+                lastRow += '<p>Winds <b>' + Math.round(mpsToMph(current.wind.speed)) + ' mph</b></p>';
                 lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
-                lastRow += '<p>Gusts to <b>' + Math.round(current.wind.speed) + ' mph</b></p>';              
+                lastRow += '<p>Gusts to <b>' + Math.round(mpsToMph(current.wind.gust)) + ' mph</b></p>';         
             }
             else {
-                lastRow += '<p>Winds <b>' + Math.round(current.wind.speed) + ' mph</b></p>';
+                lastRow += '<p>Winds <b>' + Math.round(mpsToMph(current.wind.speed)) + ' mph</b></p>';
                 lastRow += '<p>from <b>' + compass(Math.round(current.wind.deg)) + '</b></p>';
             }
             lastRow += '</td>';
-  
             lastRow += '<td><p>Visibility</p><p><b>' + Math.round(current.visibility) + ' ft</b></p></td>';
-            
             lastRow += '<td><p>Sunset</p><p>' + makeTime(sunsetDate) +  '</p><p><img src="sunset.jpg"></p></td>';
             
             // update the html rows
@@ -275,8 +306,8 @@ var buildCurrent = function buildCurrent(city) {
 
         } else {
             // request failed
-            console.out(status);
-            alert("Request for current weather data failed. Response status: " + status);
+            console.log("status:", status, " cod:", forecast.cod, " message: ", forecast.message );
+            alert("Request for current weather data failed. Response message: " + forecast.message );
         }
     });
 }
@@ -287,14 +318,14 @@ var buildForecast = function buildForecast(city) {
     // use thisWeek to populate Html Table rows
 
     var forcastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city +
-                "&units=imperial&appid=9b98b2bff9b27e273ccf886e1e20856e";
+                "&units=metric&appid=9b98b2bff9b27e273ccf886e1e20856e";
 
-    // console.log(forcastUrl);
+
     // request 5 day forcast JSON data from weather service
     $.getJSON(forcastUrl, function (forecast, status) {
-        if (status === "success") {
+        if (status === "success" && forecast.cod == "200") {
             // handle successful request
-            
+
             var thisWeek = makeWeek(forecast);
    
             // update forcast table elements with the forcast
@@ -328,8 +359,8 @@ var buildForecast = function buildForecast(city) {
 
         } else {
             // request failed
-            console.out(status);
-            alert("Request for weather forcast data failed. Response status: " + status);
+            console.log("status:", status, " cod:", forecast.cod, " message: ", forecast.message );
+            alert("Request for weather forecast data failed. Response message: " + forecast.message);
         }
     });
 };

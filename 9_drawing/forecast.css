@@ -1,0 +1,157 @@
+/* Weather Forcast Styles */
+
+html {
+    background-image: url("cloudy-sky.jpg");
+    padding:1em;
+    max-width: 800px;
+    min-width: 320px;
+}
+
+div {
+    margin: .5em;
+    font-size: larger;
+}
+
+h1 {
+    margin: .5em auto;
+    font-family: 'Bubblegum Sans', cursive;
+    color: #ff8c18;
+}
+
+h2 {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+table {
+    margin: 1em auto;
+    border: solid 2px green;
+    border-radius: .5em;
+}
+
+#weather {
+    width: 100%;
+    margin: auto;
+}
+
+#chartdiv {
+    margin: auto;
+}
+
+#fiveDay, #current {
+    background-color: #fff;
+    text-align: center;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+#current td {
+    font-size: 1.25em;
+    color: darkblue;
+}
+
+#fd-hightemp {
+    color: red;
+}
+
+#fd-lowtemp {
+    color: blue;
+}
+
+th {
+    font-family: 'Bubblegum Sans', cursive;
+    width: 100%;
+}
+
+table p {
+    margin: 0;
+    padding: 0;
+}
+
+#fiveDay td {
+    width: 20%;
+    padding: .25em .5em;
+}
+
+#current td {
+    width: 20%;
+    padding: .1em .1em;
+}
+
+#desc {
+    vertical-align: text-top;
+}
+
+#desc p {
+    padding: 0 .5em;
+}
+
+#icon {
+    vertical-align: bottom;
+}
+
+#icon img{
+    padding: 0 .5em;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}
+
+#owmlogo {
+    padding-left: 1em;    
+}
+
+input {
+    font-size: 1em;
+    font-family: 'Bubblegum Sans', cursive;
+    padding-left: .5em;
+}
+
+button {
+    margin: 1em;
+    font-size: .9em;
+    font-weight: bold;
+    color: green;
+}
+
+#getCity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    max-width: 24em;
+    font-family: 'Bubblegum Sans', cursive;
+    margin: auto;    
+}
+
+div#footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    max-width: 24em;
+    font-family: 'Bubblegum Sans', cursive;
+    margin: auto;    
+}
+
+#chart {
+    border-style: solid;
+    border-width: 2px;
+    border-color: green;
+    border-radius: .5em;
+}
+
+#popCast {
+    border-style: solid;
+    border-width: 2px;
+    border-color: orange;
+    border-radius: .25em;
+    position:absolute;
+    left:-200px;
+    top:100px;
+}
+
+
